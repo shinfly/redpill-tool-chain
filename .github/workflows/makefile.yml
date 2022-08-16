@@ -59,7 +59,7 @@ jobs:
           sed -i -e 's/0x0001/0x88AA/g' -e 's/0x46f4/0x88AA/g' ${{matrix.platform}}_user_config.json
           # 调整SN和MAC,最好使用 actions secrets 引入,SN应该是固定值不应该每次生成
           sn=`./redpill_tool_chain.sh sn ${{matrix.platform}} | grep 'Serial Number' | awk '{print $3}'`
-          sed -i -e "s/1234XXX123/${sn:="1130LWN123456"}/g" -e 's/XXYYXXYYXXYY/0011323D47F7/g' ${{matrix.platform}}_user_config.json
+          sed -i -e "s/1234XXX123/${sn:="17B2ODN173400"}/g" -e 's/XXYYXXYYXXYY/001132859085/g' ${{matrix.platform}}_user_config.json
           # 调整synoinfo
           sed -i -e 's/"synoinfo": {},/"synoinfo": {\n\t"maxlanport": "2"\n    },/' ${{matrix.platform}}_user_config.json
           cat ${{matrix.platform}}_user_config.json
@@ -69,6 +69,7 @@ jobs:
           ./redpill_tool_chain.sh add https://github.com/tossp/redpill-tool-chain/raw/master/extensions/redpill-boot-wait.json
           ./redpill_tool_chain.sh add https://github.com/tossp/redpill-tool-chain/raw/master/extensions/redpill-acpid.json
           ./redpill_tool_chain.sh add https://github.com/tossp/redpill-tool-chain/raw/master/extensions/redpill-virtio.json
+          ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/vmxnet3/rpext-index.json
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/e1000/rpext-index.json
       - name: 添加扩展驱动[dva3221]
         if: matrix.platform == 'dva3221'
